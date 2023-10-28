@@ -11,14 +11,14 @@ const { isLoading, isAuthenticated } = useAuth0()
 
 <template>
   <div v-if="isLoading" class="page-layout">
-    <PageLoader />
+    Loading...
   </div>
   <template v-else>
     <header>
       <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
       <div class="wrapper">
-        <HelloWorld msg="You did it!" />
+        <HelloWorld msg="Disclaimer" />
 
         <nav>
           <template v-if="!isAuthenticated">

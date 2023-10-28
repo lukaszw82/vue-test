@@ -27,7 +27,7 @@ const playVideo = () => {
 <template>
   <div class="wrapper">
     <h1>This is profile page</h1>
-    <p>Username: {{ user?.name }}</p>
+    <p>Username: {{ user?.name || user?.nickname }}</p>
     <input type="file" @change="handleFileChange" accept="video/*" />
     <video ref="videoPlayer" controls></video>
   </div>
