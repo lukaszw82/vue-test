@@ -1,23 +1,40 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { useAuth0 } from '@auth0/auth0-vue'
 import HelloWorld from './components/HelloWorld.vue'
+import LoginButton from './components/LoginButton.vue'
+import LogoutButton from './components/LogoutButton.vue'
+import SignupButton from './components/SignupButton.vue'
+
+const { isLoading, isAuthenticated } = useAuth0()
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <div v-if="isLoading" class="page-layout">
+    <PageLoader />
+  </div>
+  <template v-else>
+    <header>
+      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <div class="wrapper">
+        <HelloWorld msg="You did it!" />
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+        <nav>
+          <template v-if="!isAuthenticated">
+            <SignupButton />
+            <LoginButton />
+          </template>
+          <LogoutButton v-if="isAuthenticated" />
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink v-if="isAuthenticated" to="/profile">Profile</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+        </nav>
+      </div>
+    </header>
 
-  <RouterView />
+    <RouterView />
+  </template>
 </template>
 
 <style scoped>
